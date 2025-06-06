@@ -6,9 +6,19 @@ class GitHub {
     this.repos_sort = "created: asc";
   }
   async getUser(user) {
-    const profileResponse = await fetch(`https://api.github.com/users/${user}`);
+    let options = { headers: {} };
+    if (sessionStorage.ACCESS_TOKEN) {
+      options.headers = {
+        Authorization: `token ${sessionStorage.getItem("ACCESS_TOKEN")}`,
+      };
+    }
+    const profileResponse = await fetch(
+      `https://api.github.com/users/${user}`,
+      options?.headers?.Authorization ? options : {}
+    );
     const repoResponse = await fetch(
-      `https://api.github.com/users/${user}/repos?per_page=${this.repos_count}&sort=${this.repos_sort}`
+      `https://api.github.com/users/${user}/repos?per_page=${this.repos_count}&sort=${this.repos_sort}`,
+      options?.headers?.Authorization ? options : {}
     );
     const profile = await profileResponse.json();
     const repos = await repoResponse.json();

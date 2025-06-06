@@ -1,3 +1,15 @@
+const getSecrets = async () => {
+  const response = await fetch(
+    "https://github-finder-backend.vercel.app/api/token"
+  );
+  const data = await response.json();
+  let token = data.token;
+  if (token) {
+    sessionStorage.setItem("ACCESS_TOKEN", token);
+  }
+};
+
+getSecrets();
 // Init github
 let github = new GitHub();
 
