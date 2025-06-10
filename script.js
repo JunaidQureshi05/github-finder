@@ -1,6 +1,6 @@
 const getSecrets = async () => {
   const response = await fetch(
-    "https://github-finder-backend.vercel.app/api/token"
+    "https://github-finder-backend-8g12.vercel.app/api/token"
   );
   const data = await response.json();
   let token = data.token;
