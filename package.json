@@ -1,0 +1,24 @@
+{
+  "name": "github-finder-js",
+  "version": "2.0.0",
+  "description": "A web app built using html and ts to search github user using username and see person details repo details etc",
+  "homepage": "https://github.com/JunaidQureshi05/github-finder#readme",
+  "bugs": {
+    "url": "https://github.com/JunaidQureshi05/github-finder/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JunaidQureshi05/github-finder.git"
+  },
+  "license": "MIT",
+  "author": "Juned Ahmad",
+  "type": "modules",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
