@@ -14,8 +14,8 @@
   "author": "Juned Ahmad",
   "type": "modules",
   "main": "index.html",
-  "scripts": {
-    "build": "tsc && cp -r dist public/"
+ "scripts": {
+    "build": "tsc && rm -rf public && mkdir -p public/dist && cp -r dist/* public/dist && cp -r static/* public/"
   },
   "devDependencies": {
     "typescript": "^5.8.3"
