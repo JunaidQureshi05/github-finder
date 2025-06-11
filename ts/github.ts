@@ -28,6 +28,7 @@ export class GitHub implements Github {
     );
     const profileData: any = await profileResponse.json();
     const profile: UserProfileType = {
+      message: profileData?.message,
       avatarUrl: profileData.avatar_url,
       htmlUrl: profileData.html_url,
       publicRepos: profileData.public_repos,
