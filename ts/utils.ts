@@ -1,5 +1,8 @@
-function debouncedFunction(fn, time) {
-  let timerId;
+export function debouncedFunction(
+  fn: (parameter: any) => any,
+  time: number
+): (parameter: any) => any {
+  let timerId: number;
   return function (...args) {
     if (timerId) {
       clearTimeout(timerId);
@@ -10,11 +13,11 @@ function debouncedFunction(fn, time) {
   };
 }
 
-function formatDate(isoString) {
+export function formatDate(isoString: Date): string {
   const date = new Date(isoString);
 
   // Options for formatting
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long", // full month name
     day: "numeric",

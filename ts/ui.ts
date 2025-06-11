@@ -1,23 +1,30 @@
-class UI {
+import { RepoType, UserProfileType } from "./types/index.ts";
+import { formatDate } from "./utils.ts";
+interface UIInterface {
+  profile: HTMLElement;
+}
+
+export class UI implements UIInterface {
+  public profile: HTMLElement;
   constructor() {
-    this.profile = document.getElementById("profile");
+    this.profile = document.getElementById("profile")!;
   }
-  showProfile(user) {
+  showProfile(user: UserProfileType) {
     this.profile.innerHTML = `
     <div class="card card-body mb-3"> 
         <div class="row">
         <div class="col-md-3">
-                        <img class="img-fluid mb-2" src="${user.avatar_url}"/>
+                        <img class="img-fluid mb-2" src="${user.avatarUrl}"/>
                         <a href="${
-                          user.html_url
+                          user.htmlUrl
                         }" target="_blank" class="btn btn-primary d-block mb-4">View Profile</a>
                       </div>
                       <div class="col-md-9">
                             <span class="badge bg-primary ">Public Repos: ${
-                              user.public_repos
+                              user.publicRepos
                             }</span>
                             <span class="badge bg-light">Public Gists: ${
-                              user.public_gists
+                              user.publicGists
                             }</span>
                             <span class="badge bg-success">Followers: ${
                               user.followers
@@ -45,9 +52,11 @@ class UI {
                                 </li>
 
                                 <li class="list-group-item">Member Since: ${formatDate(
-                                  user.created_at
+                                  user.createdAt
                                 )}</li>
-                                
+                                <li class="list-group-item">About: ${
+                                  user.bio
+                                }</li>
                             </ul>
                     </div>        
                     
@@ -60,14 +69,14 @@ class UI {
   clearProfile() {
     this.profile.innerHTML = "";
   }
-  showAlert(message, className) {
+  showAlert(message: string, className: string) {
     //   clear any reamining alerts
     this.clearAlert();
     const div = document.createElement("div");
-    div.classList = className;
+    div.classList.add(className);
     div.appendChild(document.createTextNode(message));
 
-    const container = document.querySelector(".searchContainer");
+    const container = document.querySelector(".searchContainer")!;
     const search = document.querySelector(".search");
     container.insertBefore(div, search);
     // Timeout after 3sec
@@ -83,19 +92,19 @@ class UI {
     }
   }
 
-  showRepos(repos) {
+  showRepos(repos: RepoType[]) {
     let output = "";
     repos.forEach(function (repo) {
       output += `
          <div class="card card-body mb-2">
          <div class="row">
          <div class="col-md-6">
-         <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+         <a href="${repo.htmlUrl}" target="_blank">${repo.name}</a>
          </div>
          <div  class="col-md-6">
-         <span class="badge bg-primary">Stars:${repo.stargazers_count}</span>
-         <span class="badge bg-light">Watchers:${repo.watchers_count}</span>
-         <span class="badge bg-success">Forks:${repo.forks_count}</span>
+         <span class="badge bg-primary">Stars:${repo.stargazersCount}</span>
+         <span class="badge bg-light">Watchers:${repo.watchersCount}</span>
+         <span class="badge bg-success">Forks:${repo.forksCount}</span>
          </div>
          </div>
          </div>
@@ -103,6 +112,6 @@ class UI {
          `;
     });
 
-    document.getElementById("repos").innerHTML = output;
+    document.getElementById("repos")!.innerHTML = output;
   }
 }

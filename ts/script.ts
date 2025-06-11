@@ -1,3 +1,7 @@
+import { GitHub } from "./github.ts";
+import { UI } from "./ui.ts";
+import { debouncedFunction } from "./utils.ts";
+
 const getSecrets = async () => {
   const response = await fetch(
     "https://github-finder-backend-8g12.vercel.app/api/token"
@@ -16,11 +20,11 @@ let github = new GitHub();
 // Init UI
 const ui = new UI();
 // Search input
-const searchUser = document.getElementById("searchUser");
+const searchUser = document.getElementById("searchUser")!;
 
 // handle User search
 
-function handleUserSearch(userText) {
+function handleUserSearch(userText: string) {
   if (userText != "") {
     // make http call
     github.getUser(userText).then((data) => {
@@ -43,6 +47,6 @@ let doubouncedHandleUserSearch = debouncedFunction(handleUserSearch, 200);
 
 // search input event listener
 
-searchUser.addEventListener("keyup", (e) =>
-  doubouncedHandleUserSearch(e.target.value)
+searchUser.addEventListener("keyup", (e: KeyboardEvent) =>
+  doubouncedHandleUserSearch((e.target as HTMLInputElement)!.value)
 );
