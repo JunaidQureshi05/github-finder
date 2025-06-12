@@ -27,6 +27,7 @@ export class GitHub implements Github {
       options?.headers?.Authorization ? options : {}
     );
     const profileData: any = await profileResponse.json();
+    console.log("@@@@profile data", profileData);
     const profile: UserProfileType = {
       message: profileData?.message,
       avatarUrl: profileData.avatar_url,
@@ -42,15 +43,17 @@ export class GitHub implements Github {
       createdAt: profileData.created_at,
       bio: profileData.bio,
     };
-    const reposData = await repoResponse.json();
-    const repos: RepoType[] = reposData.map((repo: any) => ({
-      name: repo?.name,
-      htmlUrl: repo?.html_url,
-      stargazersCount: repo?.stargazers_count,
-      watchersCount: repo?.watchers_count,
-      forksCount: repo?.forks_count,
-    }));
-
+    const reposData: any[] | object = await repoResponse.json();
+    let repos: RepoType[] = [];
+    if (Array.isArray(reposData)) {
+      repos = reposData?.map((repo: any) => ({
+        name: repo?.name,
+        htmlUrl: repo?.html_url,
+        stargazersCount: repo?.stargazers_count,
+        watchersCount: repo?.watchers_count,
+        forksCount: repo?.forks_count,
+      }));
+    }
     return {
       profile,
       repos,

@@ -28,6 +28,7 @@ function handleUserSearch(userText: string) {
   if (userText != "") {
     // make http call
     github.getUser(userText).then((data) => {
+      console.log(">>>>data", data);
       if (data.profile.message === "Not Found") {
         //   Show Alert
         ui.showAlert("User not found!", "alert alert-danger");

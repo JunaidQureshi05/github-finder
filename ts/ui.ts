@@ -73,7 +73,7 @@ export class UI implements UIInterface {
     //   clear any reamining alerts
     this.clearAlert();
     const div = document.createElement("div");
-    div.classList.add(className);
+    div.classList.add(...className.split(" "));
     div.appendChild(document.createTextNode(message));
 
     const container = document.querySelector(".searchContainer")!;
